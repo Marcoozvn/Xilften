@@ -43,7 +43,7 @@ export default class Login extends Component {
       <Container>
         <Form onSubmit={this.handleSignIn}>
           <AppLogo src={logo} alt="logo" />
-          <span>Turmalina Films</span>
+          <span>RecSys Films</span>
           {this.state.error && <p>{this.state.error}</p>}
           <input
             type="text"
