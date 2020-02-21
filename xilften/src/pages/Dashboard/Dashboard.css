@@ -1,0 +1,10 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #fff;;
+}
+
+.dashboard h3 {
+  margin-left: 20px;
+}

@@ -7,7 +7,7 @@ exports.getRecommendation = async (req, res) => {
 
     let recommendation = await Recommendation.getRecommendation(userId);
 
-    res.status(200).send(recommendation);
+    return res.status(200).send(recommendation);
 }
 
 

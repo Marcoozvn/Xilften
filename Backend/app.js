@@ -21,7 +21,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-let port = 3000;
+let port = 3333;
 
 app.use('/user', user);
 app.use('/film', film);

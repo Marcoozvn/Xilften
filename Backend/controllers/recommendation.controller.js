@@ -27,16 +27,18 @@ exports.getRecommendation = async (userId) => {
   
   for (usId in dataset) {
     if (usId !== userId) {
-      let sim = euclideanSimilarity(targetRatings, dataset[usId])
+      let sim = await euclideanSimilarity(targetRatings, dataset[usId])
       similarities[usId] = sim;
     }
   }
-  let similarUsers = getMostSimilars(similarities, 5);
-  
-  let movies = getMovies(similarUsers, dataset, targetRatings);
+  let similarUsers = await getMostSimilars(similarities, 5);
+  let movies = await getMovies(similarUsers, dataset, targetRatings);
   
   let recommendation = [];
   for (item in movies) {
+    if (recommendation.length == 100) {
+      return recommendation;
+    }
     let movId = movies[item][0];
     let mov = await Film.find({_id: movId});
     recommendation.push(mov[0]);
@@ -49,7 +51,7 @@ getMovies = (similarUsers, dataset, targetRatings) => {
   for (let simUser in similarUsers) {
     for (mov in dataset[similarUsers[simUser][0]]) {
       //Exclui da recomendacao filmes ja avaliados pelo target
-      if (!movies.includes(mov) && !targetRatings[mov]){
+      if (!movies.includes(mov) && targetRatings && !targetRatings[mov]){
         movies.push(mov);
       }  
     }
@@ -64,11 +66,10 @@ getMovies = (similarUsers, dataset, targetRatings) => {
       
       
       if (rate) {
-        console.log(similarUsers[user][1]);
         relevance += similarUsers[user][1] * rate;
       }            
     }
-    if (relevance > 0.8) { 
+    if (relevance > 0.85) { 
       moviesRelevances.push([movies[mov], relevance]);
     }        
   }
@@ -96,7 +97,7 @@ getMostSimilars = (similarities, k) => {
 euclideanSimilarity = (targetRatings, otherUserRatings) => {
   let coef = 0;
   
-  if (targetRatings.length == 0) {
+  if (targetRatings && targetRatings.length == 0) {
     return 0;
   }
   
