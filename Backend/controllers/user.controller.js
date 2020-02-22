@@ -11,8 +11,9 @@ function generateToken(user) {
 
 exports.verifyToken = async (req, res, next) => {
     const token = req.headers['authorization'];
+
     if (!token) return res.status(403).send({error: "Token não fornecido."});
-    jwt.verify(token, 'secret_key', (err, decoded) => {
+    jwt.verify(token.replace('Bearer ', ''), 'secret_key', (err, decoded) => {
         req.user = decoded.user;
         if (err) return res.status(403).send({error: 'Falha ao autenticar token.'});
         next();
@@ -54,11 +55,11 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
 
     const loggedUser = req.user;
-    const {_id} = req.body;
+    const { id } = req.params;
 
     try {
 
-        if (loggedUser._id === _id) await User.findOneAndUpdate({_id: _id}, req.body);
+        if (loggedUser._id === id) await User.findOneAndUpdate({_id: id}, req.body);
 
         else throw new Error('Você precisa estar logado para atualizar o usuário.');
 

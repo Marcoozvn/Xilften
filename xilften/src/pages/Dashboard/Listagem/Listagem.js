@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Card from './Card'
+import Card from '../../../components/Card/Card'
 import './Listagem.css'
-import SlideButton from './SlideButton'
+import SlideButton from '../../../components/SlideButton/SlideButton'
 import useWindowDimensions from '../../../assets/useWindowDimensions'
 
 export default props => {
@@ -13,7 +13,6 @@ export default props => {
 
 
   useEffect(() => {
-    console.log(perPage)
     setMoviesPerPage(movies.slice(offset, offset + perPage))
 
   }, [offset, movies, perPage])

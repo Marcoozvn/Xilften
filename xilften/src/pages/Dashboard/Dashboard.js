@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Api from '../../services/Api' 
 // eslint-disable-next-line
 import { getUserId } from '../../services/Auth'
-import Toolbar from './Toolbar/Toolbar'
+import Toolbar from '../../components/Toolbar/Toolbar'
 import Listagem from './Listagem/Listagem'
 import './Dashboard.css'
 
@@ -461,10 +461,10 @@ export default props => {
     <div className="dashboard">
       <Toolbar history={props.history}/>
       {genres.map( genre => (
-        <>
-          <h3>{genre}</h3>
-          <Listagem key={genre} movies={movies.filter( mov => mov["genres"].includes(genre))}/>
-        </>
+        <div key={genre}>
+          <h3>Filmes do gênero <span style={{color: '#6C63FF'}}>{genre}</span></h3>
+          <Listagem movies={movies.filter( mov => mov["genres"].includes(genre))}/>
+        </div>
       ))}
     </div>
   )

@@ -1,0 +1,13 @@
+.genre-card {
+  background: #6C63FF;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 20px;
+  color: #fff;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.selected {
+  opacity: 1;
+}

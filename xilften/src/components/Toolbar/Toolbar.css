@@ -1,0 +1,15 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  color: #fff;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.toolbar img {
+  width: 80px;
+  padding: 20px;
+  cursor: pointer;
+}

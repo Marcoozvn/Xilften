@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { tmdb_api, api_key, poster_url } from '../../../services/Api'
+import { tmdb_api, api_key, poster_url } from '../../services/Api'
 import StarRatings from 'react-star-ratings'
 import { IconButton } from '@material-ui/core'
 import { Clear } from '@material-ui/icons'
-import Api from '../../../services/Api'
-import { getUserId } from '../../../services/Auth'
+import Api from '../../services/Api'
+import { getUserId } from '../../services/Auth'
 
 import './Card.css'
 

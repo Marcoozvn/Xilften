@@ -1,0 +1,15 @@
+img {
+  cursor: pointer;
+  margin: 10px 10px 20px 10px;
+  opacity: 0.5;
+}
+
+img:hover {
+  transform: scale(1.1) !important;
+  transition-duration: 0.5s;
+}
+
+.avatar-selected {
+  opacity: 1;
+  transform: scale(1.1) !important;
+}

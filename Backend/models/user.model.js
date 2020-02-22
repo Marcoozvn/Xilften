@@ -3,6 +3,10 @@ const bcrypt = require("bcryptjs");
 const Schema   = mongoose.Schema;
 
 let UserSchema = new Schema({
+    avatar: {
+        type: String,
+        default: 'https://api.adorable.io/avatars/100/2@adorable.png'
+    },
     userId: {
         type: Number,
     },
