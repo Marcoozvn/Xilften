@@ -1,0 +1,30 @@
+.details-background {
+  height: 300px;
+  margin-bottom: 10px;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-left: 10px;
+}
+
+.details-content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.details-info {
+  width: 48%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.details-close {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 52%;
+  justify-content: space-between;
+}

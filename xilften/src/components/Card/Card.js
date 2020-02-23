@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { tmdb_api, api_key, poster_url } from '../../services/Api'
-import StarRatings from 'react-star-ratings'
-import { IconButton } from '@material-ui/core'
-import { Clear } from '@material-ui/icons'
-import Api from '../../services/Api'
-import { getUserId } from '../../services/Auth'
+import React, { useState, useEffect } from 'react';
+import { tmdb_api, api_key, poster_url } from '../../services/Api';
+import StarRatings from 'react-star-ratings';
+import { IconButton } from '@material-ui/core';
+import { Clear } from '@material-ui/icons';
+import Api from '../../services/Api';
+import { getUserId } from '../../services/Auth';
+import { Tooltip } from '@material-ui/core';
 
-import './Card.css'
+import './Card.css';
 
 export default ({ movie, hideFilm }) => {
   let rating = 0
@@ -45,21 +46,25 @@ export default ({ movie, hideFilm }) => {
   }
 
   return (
-    <div className="card" style={{ backgroundImage: `url(${poster})`}}> 
-      <header>
-        <div></div>
-        <IconButton 
-        onClick={notInterested}
-        >
-          <Clear />
-        </IconButton>
-      </header>    
+    <div className="card" > 
+      <div style={{ backgroundImage: `url(${poster})`, flex: 1, width: '100%'}}>
+        <header>
+          <div></div>
+          <Tooltip title='Não interessa' arrow placement='top'>
+            <IconButton 
+            onClick={notInterested}
+            >
+              <Clear />
+            </IconButton>
+          </Tooltip>
+        </header>    
+      </div>
       <StarRatings
         rating={rating}
         starRatedColor="yellow"
         starHoverColor="yellow"
         changeRating={changeRating}
-        starDimension="25px"
+        starDimension="15px"
         numberOfStars={5}
         name={movie._id}
       />

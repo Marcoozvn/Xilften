@@ -5,13 +5,12 @@
   align-items: center;
   margin: 10px; 
   border-radius: 5px;
-  width: 200px;
-  min-width: 200px;
-  height: 340px;
+  width: 150px;
+  min-width: 150px;
+  height: 250px;
   background-color: #005073;
   background-repeat: no-repeat;
   transition: transform 300ms ease 100ms;
-  padding-bottom: 5px;
 }
 
 .card header {
@@ -21,9 +20,10 @@
   justify-content: space-between;
 }
 
-.slider-container:hover .card {
+.slider-container:hover .wrap.card {
   transform: translateX(-20%);
 }
+/*tirar o .wrap*/
 
 .card:hover ~ .card {
   transform: translateX(20%);

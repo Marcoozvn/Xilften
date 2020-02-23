@@ -11,7 +11,8 @@ export const tmdb_api = axios.create({
 
 export const api_key = "84ff829e533f00dd6091b6cc37dccd3a"
 
-export const poster_url = "https://image.tmdb.org/t/p/w200"
+export const poster_url = "https://image.tmdb.org/t/p/w154"
+export const backdrop_url = "https://image.tmdb.org/t/p/w1280"
 
 api.interceptors.request.use(async config => {
   const token = getToken()
