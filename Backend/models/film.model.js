@@ -11,7 +11,7 @@ let FilmSchema = new Schema({
         required: true
     },
     year: {
-        type: Number
+        type: Date
     },
     genres: [{
         type: String
@@ -21,8 +21,19 @@ let FilmSchema = new Schema({
     },
     tmdbId: {
         type: Number
+    },
+    poster_path: {
+        type: String
+    },
+    backdrop_path: {
+        type: String
+    },
+    overview: {
+        type: String
+    },
+    vote_average: {
+        type: Number
     }
-
 });
 
 module.exports = mongoose.model('Film', FilmSchema);

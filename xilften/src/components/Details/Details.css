@@ -11,6 +11,8 @@
   display: flex;
   flex-direction: row;
   height: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .details-info {
@@ -19,12 +21,4 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-}
-
-.details-close {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  width: 52%;
-  justify-content: space-between;
 }

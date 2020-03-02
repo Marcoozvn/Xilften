@@ -22,12 +22,17 @@ exports.verifyToken = async (req, res, next) => {
 
 exports.login = async (req, res) => {
     
-    const user = await User.find({username: req.body.username}, (err) => {
-        if(err) return res.status(500).send({error: 'Usuário não encontrado'});
-    });
+    const user = await User.findOne({username: req.body.username});
 
-    if (user.length > 0 && await bcrypt.compare(req.body.password, user[0].password)) {
-        return res.status(200).send({user: user[0], token: generateToken(user[0])});
+    if (!user) {
+        return res.status(500).send({error: 'Usuário não encontrado'});
+    }
+
+    const match = await bcrypt.compare(req.body.password, user.password);
+
+    if (match) {
+        delete user.password;
+        return res.status(200).send({user, token: generateToken(user)});
     } else {
         return res.status(400).send({error: 'Credenciais Inválidas'});
     }
@@ -53,6 +58,7 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
+    console.log(req.body);
 
     const loggedUser = req.user;
     const { id } = req.params;

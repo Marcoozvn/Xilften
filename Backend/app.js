@@ -6,6 +6,14 @@ const cors = require('cors');
 const user = require('./routes/user.routes');
 const film = require('./routes/film.routes');
 const rating = require('./routes/rating.routes');
+const { Kafka } = require('kafkajs');
+
+const kafka = new Kafka({
+    clientId: 'my-app',
+    brokers: ['localhost:9092']
+});
+
+const producer = kafka.producer();
 
 mongoose.set('useFindAndModify', false);
 
@@ -20,6 +28,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use((req, res, next) => {
+    req.producer = producer;
+
+    return next();
+});
 
 let port = 3333;
 

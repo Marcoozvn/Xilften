@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import Toolbar from '../../components/Toolbar/Toolbar';
 import GenreCard from '../../components/GenreCard/GenreCard';
-import Api from '../../services/Api';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateUser } from '../../store/actions/userActions';
 
 import './Profile.css';
 
 const mock = ['Comedy', 'Thriller', 'Horror', 'Crime', 'Drama', 'Adventure', 'Musical', 'Fantasy', 'Animation', 'Romance', 'Action',
   'Sci-Fi', 'Children', 'War'];
 
-export default ({ history }) => {
-  const [genres, setGenres] = useState(mock);
-  const [avatar, setAvatar] = useState(localStorage.getItem('AVATAR'));
+const Profile = ({ history, updateUser, user }) => {
+  const [genres, setGenres] = useState(user.genres);
+  const [avatar, setAvatar] = useState(user.avatar);
 
   const avatars = [
     'https://api.adorable.io/avatars/100/1@adorable.png',
@@ -30,18 +32,7 @@ export default ({ history }) => {
   }
 
   async function handleSave() {
-
-    try {
-      await Api.put(`/user/${localStorage.getItem('USER_ID')}`, { avatar });
-
-      //isso vai sair no futuro
-      localStorage.setItem('AVATAR', avatar);
-
-      history.push('/app');
-    } catch (err) {
-      alert('Algo deu errado.');
-    }
-
+    updateUser({...user, avatar, genres}, history);
   }
 
   return (
@@ -55,9 +46,15 @@ export default ({ history }) => {
       </div>
       <h2>Quais são seus <span style={{color: '#6C63FF'}}>gêneros</span> preferidos?</h2>
       <div className='genre-list'>
-        {mock.map( genre => <GenreCard key={genre} select={addGenre} unselect={deleteGenre} genre={genre}></GenreCard>)}
+        {mock.map( genre => <GenreCard key={genre} select={addGenre} unselect={deleteGenre} genre={genre} selectedGenres={genres}></GenreCard>)}
       </div>
       <button onClick={handleSave}><strong>Salvar</strong></button>
     </div>
   );
 }
+
+const mapStateToProps = state => ({ user: state.user })
+
+const mapDispatchToProps = dispatch => bindActionCreators({ updateUser }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

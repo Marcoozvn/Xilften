@@ -34,8 +34,18 @@ exports.rateFilm = async (req, res) => {
    
     try {
         const { userId, filmId, rate, comment } = req.body;
+
+        console.log(userId, filmId);
         
         await Rating.findOneAndUpdate({userId: userId, filmId: filmId}, {rate: rate, comment: comment}, {upsert: true});
+
+        await req.producer.connect();
+        await req.producer.send({
+            topic: 'refineRecommendation',
+            messages: [
+                { value: userId },
+            ],
+        });
 
         res.status(200).send({message: 'Avaliacao salva com sucesso.'})
     } catch (error) {

@@ -1,6 +1,7 @@
 const Film = require('../models/film.model');
 const CSV = require('csvtojson');
 const Recommendation = require('./recommendation.controller');
+const Api = require('../services/Api');
 
 exports.getRecommendation = async (req, res) => {
     const { userId } = req.params;
@@ -78,18 +79,22 @@ exports.loadFromCSV = async (req, res) => {
         let movie = jsonArray[index];
         let links = jsonLinksArray[index];
         try {
-            const { movieId, title } = movie;
-            const index = title.lastIndexOf(')');
-            const year = title.substring(index-4, index);
+            const { movieId } = movie;
             const genres = movie.genres.replace('(no genres listed)', '').split('|');
 
+            const { data: { poster_path, backdrop_path, overview, title, vote_average, release_date } } =  await Api.tmdb_api.get(`/movie/${links.tmdbId}?api_key=${Api.api_key}&language=pt-BR`);
+
             const mov = new Film({
-                movieId: movieId,
-                title: title,
-                year: year,
-                genres: genres,
+                movieId,
+                title,
+                year: release_date,
+                genres,
                 imdbId: links.imdbId,
-                tmdbId: links.tmdbId
+                tmdbId: links.tmdbId,
+                poster_path,
+                backdrop_path,
+                overview,
+                vote_average
             });
 
             await mov.save();

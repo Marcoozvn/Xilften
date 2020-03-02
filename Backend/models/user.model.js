@@ -34,6 +34,9 @@ let UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    genres: {
+        type: [String]
     }
 });
 

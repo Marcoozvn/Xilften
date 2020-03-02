@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
-import Api from '../../services/Api';
+import React from 'react';
+import { changeName, changeEmail, changeUsername, changePassword, changeConfirmPassword, setError } from '../../store/actions/formActions';
+import { register } from '../../store/actions/userActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import './Form.css';
 
-export default ({ onSignUp }) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
+const RegisterForm = ({ name, email, username, password, confirmPassword, error, changeName, changeEmail, changeUsername, changePassword, changeConfirmPassword, setError, register }) => {
 
   async function handleSignIn(e) {
     e.preventDefault()
@@ -19,14 +16,7 @@ export default ({ onSignUp }) => {
     else if ( password !== confirmPassword ) setError("A senha e a confirmação de senha são diferentes")
     
     else {
-      try {
-        await Api.post("/user", { name, username, email, password });
-
-        onSignUp();
-        
-      } catch (err) {
-        setError("Ocorreu um erro ao registrar sua conta. T.T");
-      }
+      register({ name, username, email, password });
     }
   };
 
@@ -38,35 +28,35 @@ export default ({ onSignUp }) => {
           id="name"
           type="text"
           placeholder="Qual o seu nome?"
-          onChange={e => setName(e.target.value)} 
+          onChange={e => changeName(e.target.value)} 
           />
 
         <input 
           id="email"
           type="email"
           placeholder="E-mail"
-          onChange={e => setEmail(e.target.value)} 
+          onChange={e => changeEmail(e.target.value)} 
           />
 
         <input 
           id="username"
           type="text"
           placeholder="Insira um username"
-          onChange={e => setUsername(e.target.value)} 
+          onChange={e => changeUsername(e.target.value)} 
           />
 
         <input 
           id="password"
           type="password"
           placeholder="Senha"
-          onChange={e => setPassword(e.target.value)} 
+          onChange={e => changePassword(e.target.value)} 
           />
 
         <input 
           id="password_confirmation"
           type="password"
           placeholder="Confirme sua senha"
-          onChange={e => setConfirmPassword(e.target.value)} 
+          onChange={e => changeConfirmPassword(e.target.value)} 
           />
 
         <button className="btn" type="submit">Cadastrar</button>
@@ -74,3 +64,19 @@ export default ({ onSignUp }) => {
     </div>
   )
 }
+
+const mapStateToProps = state => (
+  {
+    name: state.form.name,
+    email: state.form.email,
+    username: state.form.username,
+    password: state.form.password,
+    confirmPassword: state.form.confirmPassword,
+    error: state.form.error
+  }
+)
+
+const mapDispatchToProps = dispatch => 
+ bindActionCreators({changeName, changeEmail, changeUsername, changePassword, changeConfirmPassword, setError, register}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

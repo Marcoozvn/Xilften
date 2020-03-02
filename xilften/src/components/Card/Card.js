@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { tmdb_api, api_key, poster_url } from '../../services/Api';
+import React from 'react';
 import StarRatings from 'react-star-ratings';
 import { IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
-import Api from '../../services/Api';
+import Api, { poster_url } from '../../services/Api';
 import { getUserId } from '../../services/Auth';
 import { Tooltip } from '@material-ui/core';
 
@@ -11,22 +10,6 @@ import './Card.css';
 
 export default ({ movie, hideFilm }) => {
   let rating = 0
-  const [poster, setPoster] = useState('')
-  //const [overview, setOverview] = useState('')
-
-  useEffect(() => {
-    async function fetchData() {
-
-      const response =  await tmdb_api.get(`/movie/${movie.tmdbId}?api_key=${api_key}&language=pt-BR`)
-
-      const { data: { poster_path } } = response
-
-      setPoster(poster_url + poster_path)
-      //setOverview(response.data.overview)
-    }
-    
-    fetchData()
-  }, [])
 
   async function rate(rate, film) {
 
@@ -44,13 +27,13 @@ export default ({ movie, hideFilm }) => {
   function changeRating() {
     rate(rating, movie)
   }
-
+  //backgroundImage: `url(${poster_url + movie.poster_path})`
   return (
     <div className="card" > 
-      <div style={{ backgroundImage: `url(${poster})`, flex: 1, width: '100%'}}>
+      <div style={{ flex: 1, width: '100%'}}>
         <header>
           <div></div>
-          <Tooltip title='Não interessa' arrow placement='top'>
+          <Tooltip title='Não interessa' placement='top'>
             <IconButton 
             onClick={notInterested}
             >

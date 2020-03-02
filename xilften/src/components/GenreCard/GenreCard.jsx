@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './GenreCard.css';
 
-export default ({ select, unselect, genre }) => {
-  const [selected, setSelected] = useState(true);
+export default ({ select, unselect, selectedGenres, genre }) => {
+  const [selected, setSelected] = useState(false);
+
+  useEffect(() => {
+    const value = selectedGenres.includes(genre);
+    setSelected(value);
+  }, [selectedGenres, genre]);
 
   function handleClick() {
     if (selected) {
-      setSelected(false)
+      setSelected(!selected)
       unselect(genre);
     } else {
-      setSelected(true);
+      setSelected(!selected);
       select(genre);
     }
   }
