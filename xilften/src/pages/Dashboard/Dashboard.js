@@ -1,34 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Api from '../../services/Api' ;
-import { getUserId } from '../../services/Auth';
 import Toolbar from '../../components/Toolbar/Toolbar';
 import Listagem from './Listagem/Listagem';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeMoviesList } from '../../store/actions/movieActions';
+
 import './Dashboard.css';
 
 export default props => {
-  const [movies, setMovies] = useState([]);
-  const [genres, setGenres] = useState([]);
-
-  useEffect(() => {
-    function findGenres() {
-      let gen = [];
-      movies.forEach( mov => {
-        gen = gen.concat(mov["genres"].filter( item => !gen.includes(item)))
-      })
-
-      setGenres(gen);
-    }
-
-    findGenres();
-  }, [movies])
-
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const { genres } = user;
 
   useEffect(() => {
     async function fetchData() {
 
-      const response = await Api.get(`/film/recommendation/${getUserId()}`);
+      const response = await Api.get(`/film/recommendation/${user._id}`);
 
-      setMovies(response.data.movies);
+      genres.forEach( genre => {
+        const movies = response.data.movies.filter( movie => movie.genres.includes(genre));
+        dispatch(changeMoviesList(genre, movies));
+      })
     }
     fetchData();
   }, [])
@@ -39,7 +31,7 @@ export default props => {
       {genres.map( genre => (
         <div key={genre}>
           <h3>Filmes do gênero <span style={{color: '#6C63FF'}}>{genre}</span></h3>
-          <Listagem movies={movies.filter( mov => mov["genres"].includes(genre))}/>
+          <Listagem genre={genre}/>
         </div>
       ))}
     </div>

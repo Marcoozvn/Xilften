@@ -1,20 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { changeUsername, changePassword, setError } from '../../store/actions/formActions';
 import { login } from '../../store/actions/userActions';
 
 import './Form.css';
 
-const LoginForm = ({ history, username, password, error, changeUsername, changePassword, setError, login }) => {
+export default ({ history }) => {
+  const username = useSelector(state => state.form.username);
+  const password = useSelector(state => state.form.password);
+  const error = useSelector(state => state.form.error);
+  const dispatch = useDispatch();
 
   async function handleSignIn(e) {
     e.preventDefault();
 
-    if (!username || !password) setError("Preencha e-mail e senha para continuar!");
+    if (!username || !password) dispatch(setError("Preencha e-mail e senha para continuar!"));
     
     else {
-      login({username, password}, history);
+      dispatch(login({username, password}, history));
     }
   };
 
@@ -26,14 +29,14 @@ const LoginForm = ({ history, username, password, error, changeUsername, changeP
           id="username"
           type="text"
           placeholder="E-mail"
-          onChange={e => changeUsername(e.target.value)} 
+          onChange={e => dispatch(changeUsername(e.target.value))} 
           />
 
         <input 
           id="password"
           type="password"
           placeholder="Senha"
-          onChange={e => changePassword(e.target.value)} 
+          onChange={e => dispatch(changePassword(e.target.value))} 
           />
 
         <button className="btn" type="submit">Login</button>
@@ -42,16 +45,3 @@ const LoginForm = ({ history, username, password, error, changeUsername, changeP
     </div>
   )
 }
-
-const mapStateToProps = state => (
-  {
-    username: state.form.username,
-    password: state.form.password,
-    error: state.form.error
-  }
-)
-
-const mapDispatchToProps = dispatch => bindActionCreators({changeUsername, changePassword, setError, login}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
-

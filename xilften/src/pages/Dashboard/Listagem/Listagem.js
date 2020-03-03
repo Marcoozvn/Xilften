@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Card from '../../../components/Card/Card';
 import './Listagem.css';
 import SlideButton from '../../../components/SlideButton/SlideButton';
 import useWindowDimensions from '../../../assets/useWindowDimensions';
 import Details from '../../../components/Details/Details';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeMoviesDetails, changeMoviesOffset, changeMoviesPerPage } from '../../../store/actions/movieActions';
 
-export default props => {
+export default ({ genre }) => {
   const { width } = useWindowDimensions();
-  const [movies, setMovies] = useState([]);
-  const [offset, setOffset] = useState(0);
-  const [moviesPerPage, setMoviesPerPage] = useState([]);
-  const [movieDetails, setMovieDetails] = useState(null);
-  const perPage = Math.trunc(width/150);
+  const perPage = Math.trunc(width/180);
+
+  const movies = useSelector(state => state.movies[genre].list);
+  const movieDetails = useSelector(state => state.movies[genre].details);
+  const offset = useSelector(state => state.movies[genre].offset);
+  const moviesPerPage = useSelector(state => state.movies[genre].moviesPerPage);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setMoviesPerPage(movies.slice(offset, offset + perPage));
-
+    dispatch(changeMoviesPerPage(genre, movies.slice(offset, offset + perPage)));
   }, [offset, movies, perPage]);
-
-  useEffect(() => {
-
-    setMovies(props.movies);
-
-  }, [props.movies]);
 
   function previousPage() {
     let my_offset = offset;
@@ -30,7 +27,7 @@ export default props => {
       my_offset -= 1;
     }
 
-    setOffset(my_offset);
+    dispatch(changeMoviesOffset(genre, my_offset));
   }
 
   function nextPage() {
@@ -39,22 +36,11 @@ export default props => {
       my_offset += 1;
     }
 
-    setOffset(my_offset);
-  }
-
-  function hideFilm(film) {
-
-    const newArr = movies.filter(elem => elem !== film);
-
-    setMovies(newArr);
-  }
+    dispatch(changeMoviesOffset(genre, my_offset));
+  }  
 
   function openMovieDetails(movie) {
-    setMovieDetails(movie);
-  }
-
-  function closeMovieDetails() {
-    setMovieDetails(null);
+    dispatch(changeMoviesDetails(genre, movie));
   }
 
   return (
@@ -62,16 +48,15 @@ export default props => {
       <div className="slider">
         {offset > 0 && <SlideButton onClick={previousPage} type="prev"/>}      
         <div className="slider-container">
-          {movies.lenght}
           {moviesPerPage.map( mov => (
             <div className='wrap' key={mov._id} onClick={() => openMovieDetails(mov)}>
-              <Card movie={mov} hideFilm={hideFilm}/>
+              <Card movie={mov} genre={genre}/>
             </div>
           ))}
         </div>
         {offset < movies.length - perPage + 1 && <SlideButton onClick={nextPage} type="next"/>}
       </div>
-      { movieDetails ? <Details movie={movieDetails} close={closeMovieDetails}/> : <></> }
+      { movieDetails ? <Details genre={genre}/> : <></> }
     </>
   )
 }

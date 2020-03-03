@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Toolbar from '../../components/Toolbar/Toolbar';
 import GenreCard from '../../components/GenreCard/GenreCard';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../../store/actions/userActions';
 
 import './Profile.css';
@@ -10,9 +9,11 @@ import './Profile.css';
 const mock = ['Comedy', 'Thriller', 'Horror', 'Crime', 'Drama', 'Adventure', 'Musical', 'Fantasy', 'Animation', 'Romance', 'Action',
   'Sci-Fi', 'Children', 'War'];
 
-const Profile = ({ history, updateUser, user }) => {
+export default ({ history }) => {
+  const user = useSelector(state => state.user);
   const [genres, setGenres] = useState(user.genres);
   const [avatar, setAvatar] = useState(user.avatar);
+  const dispatch = useDispatch();
 
   const avatars = [
     'https://api.adorable.io/avatars/100/1@adorable.png',
@@ -32,7 +33,7 @@ const Profile = ({ history, updateUser, user }) => {
   }
 
   async function handleSave() {
-    updateUser({...user, avatar, genres}, history);
+    dispatch(updateUser({...user, avatar, genres}, history));
   }
 
   return (
@@ -52,9 +53,3 @@ const Profile = ({ history, updateUser, user }) => {
     </div>
   );
 }
-
-const mapStateToProps = state => ({ user: state.user })
-
-const mapDispatchToProps = dispatch => bindActionCreators({ updateUser }, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);

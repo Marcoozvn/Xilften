@@ -3,39 +3,48 @@ import StarRatings from 'react-star-ratings';
 import { IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import Api, { poster_url } from '../../services/Api';
-import { getUserId } from '../../services/Auth';
 import { Tooltip } from '@material-ui/core';
+import { changeMoviesList } from '../../store/actions/movieActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './Card.css';
 
-export default ({ movie, hideFilm }) => {
+export default ({ movie, genre }) => {
+  const movies = useSelector(state => state.movies[genre].list);
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   let rating = 0
 
   async function rate(rate, film) {
 
-    const response = await Api.post('/rating', { userId: getUserId(), filmId: film._id, rate })
+    const response = await Api.post('/rating', { userId: user._id, filmId: film._id, rate })
 
     if (response.statusText === "OK") {
       hideFilm(film);    
     }    
   }
 
-  function notInterested() {
-    hideFilm(movie)
+  function hideFilm(event) {
+    event.stopPropagation();
+
+    const newArr = movies.filter(elem => elem !== movie);
+
+    dispatch(changeMoviesList(genre, newArr));
   }
 
   function changeRating() {
     rate(rating, movie)
   }
-  //backgroundImage: `url(${poster_url + movie.poster_path})`
+  //backgroundImage: `url(${poster_url + movie.poster_path})`,
   return (
     <div className="card" > 
-      <div style={{ flex: 1, width: '100%'}}>
+      <div style={{  flex: 1, width: '100%'}}>
         <header>
           <div></div>
           <Tooltip title='Não interessa' placement='top'>
             <IconButton 
-            onClick={notInterested}
+            onClick={hideFilm}
             >
               <Clear />
             </IconButton>

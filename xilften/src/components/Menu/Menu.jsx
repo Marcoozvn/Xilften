@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { changeUser, changeToken } from '../../store/actions/userActions';
 
 import './Menu.css';
 
-const Menu = ({ history, user }) => {
+export default ({ history }) => {
   const [active, setActive] = useState(false);
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   function logOut() {
-    changeUser(null);
-    changeToken(null);
+    dispatch(changeUser(null));
+    dispatch(changeToken(null));
     history.push('/');
   }
 
@@ -36,10 +37,4 @@ const Menu = ({ history, user }) => {
       </div>
     </div>
   )
-};
-
-const mapStateToProps = state => ({ user: state.user });
-
-const mapDispatchToProps = dispatch => bindActionCreators({ changeUser }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+}

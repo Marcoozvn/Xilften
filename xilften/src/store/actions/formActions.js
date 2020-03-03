@@ -41,8 +41,11 @@ export function changeConfirmPassword(confirmPassword) {
 }
 
 export function changeRegisterPage(value) {
-  return {
-    type: 'REGISTERPAGE_CHANGED',
-    payload: value
+  return dispatch => {
+    dispatch(setError(''));
+    dispatch({
+      type: 'REGISTERPAGE_CHANGED',
+      payload: value
+    })
   }
 }
