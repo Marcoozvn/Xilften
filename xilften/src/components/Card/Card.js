@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StarRatings from 'react-star-ratings';
 import { IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
@@ -14,32 +14,26 @@ export default ({ movie, genre }) => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  let rating = 0
-
-  async function rate(rate, film) {
-
-    const response = await Api.post('/rating', { userId: user._id, filmId: film._id, rate })
-
-    if (response.statusText === "OK") {
-      hideFilm(film);    
-    }    
-  }
-
   function hideFilm(event) {
-    event.stopPropagation();
+    if (event) event.stopPropagation();
 
     const newArr = movies.filter(elem => elem !== movie);
 
     dispatch(changeMoviesList(genre, newArr));
   }
 
-  function changeRating() {
-    rate(rating, movie)
+  async function changeRating(rating, name) {
+    console.log(rating)
+    const response = await Api.post('/rating', { userId: user._id, movieId: movie._id, rate: rating })
+
+    if (response.statusText === "OK") {
+      hideFilm();    
+    }   
   }
-  //backgroundImage: `url(${poster_url + movie.poster_path})`,
+
   return (
     <div className="card" > 
-      <div style={{  flex: 1, width: '100%'}}>
+      <div style={{  flex: 1, width: '100%', backgroundImage: `url(${poster_url + movie.posterPath})`}}>
         <header>
           <div></div>
           <Tooltip title='Não interessa' placement='top'>
@@ -52,7 +46,6 @@ export default ({ movie, genre }) => {
         </header>    
       </div>
       <StarRatings
-        rating={rating}
         starRatedColor="yellow"
         starHoverColor="yellow"
         changeRating={changeRating}

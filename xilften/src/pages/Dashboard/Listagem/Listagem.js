@@ -19,6 +19,7 @@ export default ({ genre }) => {
 
   useEffect(() => {
     dispatch(changeMoviesPerPage(genre, movies.slice(offset, offset + perPage)));
+    // eslint-disable-next-line
   }, [offset, movies, perPage]);
 
   function previousPage() {

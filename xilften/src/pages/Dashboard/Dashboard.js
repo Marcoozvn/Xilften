@@ -10,25 +10,24 @@ import './Dashboard.css';
 export default props => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const { genres } = user;
 
   useEffect(() => {
     async function fetchData() {
 
-      const response = await Api.get(`/film/recommendation/${user._id}`);
+      const response = await Api.get(`/recommendation`);
 
-      genres.forEach( genre => {
+      user.genres.forEach( genre => {
         const movies = response.data.movies.filter( movie => movie.genres.includes(genre));
         dispatch(changeMoviesList(genre, movies));
       })
     }
     fetchData();
-  }, [])
+  }, [user])
 
   return (
     <div className="dashboard">
       <Toolbar history={props.history}/>
-      {genres.map( genre => (
+      {user.genres.map( genre => (
         <div key={genre}>
           <h3>Filmes do gênero <span style={{color: '#6C63FF'}}>{genre}</span></h3>
           <Listagem genre={genre}/>
