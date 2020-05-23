@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeUser, changeToken } from '../../store/actions/userActions';
+import { changeMoviesList, changeMoviesDetails, changeMoviesOffset, changeMoviesPerPage } from '../../store/actions/movieActions';
 
 import './Menu.css';
 
@@ -9,9 +10,18 @@ export default ({ history }) => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
+  const genres = ['Comedy', 'Thriller', 'Horror', 'Crime', 'Drama', 'Adventure', 'Musical', 'Fantasy', 'Animation', 'Romance', 'Action',
+  'Sci-Fi', 'Children', 'War'];
+
   function logOut() {
     dispatch(changeUser(null));
     dispatch(changeToken(null));
+    genres.forEach(genre => {
+      dispatch(changeMoviesList(genre, []));
+      dispatch(changeMoviesDetails(genre, null));
+      dispatch(changeMoviesOffset(genre, 0));  
+      dispatch(changeMoviesPerPage(genre, []));
+    })
     history.push('/');
   }
 

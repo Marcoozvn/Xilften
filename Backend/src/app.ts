@@ -11,7 +11,7 @@ BullBoard.setQueues(RecommendationQueue)
 
 // Setup mongoose connection
 mongoose.set('useFindAndModify', false)
-mongoose.connect('mongodb://localhost:27017/Xilften', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, async (err) => {
+mongoose.connect(`mongodb://${process.env.MONGO_HOST}:27017/Xilften`, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, async (err) => {
   if (err) console.log('Some problem with the connection ' + err)
   else console.log('The mongoose connection is ready')
 })

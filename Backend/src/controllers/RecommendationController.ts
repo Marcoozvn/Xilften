@@ -9,7 +9,6 @@ class RecommendationController {
     const recommendation = await Recommendation.findOne({ user: userId }).populate('movies')
 
     if (recommendation) {
-      console.log(recommendation)
       return res.json(recommendation)
     }
 

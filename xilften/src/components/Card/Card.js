@@ -4,7 +4,7 @@ import { IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import Api, { poster_url } from '../../services/Api';
 import { Tooltip } from '@material-ui/core';
-import { changeMoviesList } from '../../store/actions/movieActions';
+import { changeMoviesList, changeMoviesDetails } from '../../store/actions/movieActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './Card.css';
@@ -22,8 +22,11 @@ export default ({ movie, genre }) => {
     dispatch(changeMoviesList(genre, newArr));
   }
 
+  function openMovieDetails(movie) {
+    dispatch(changeMoviesDetails(genre, movie));
+  }
+
   async function changeRating(rating, name) {
-    console.log(rating)
     const response = await Api.post('/rating', { userId: user._id, movieId: movie._id, rate: rating })
 
     if (response.statusText === "OK") {
@@ -33,7 +36,7 @@ export default ({ movie, genre }) => {
 
   return (
     <div className="card" > 
-      <div style={{  flex: 1, width: '100%', backgroundImage: `url(${poster_url + movie.posterPath})`}}>
+      <div style={{  flex: 1, width: '100%', backgroundImage: `url(${poster_url + movie.posterPath})`}} onClick={() => openMovieDetails(movie)}>
         <header>
           <div></div>
           <Tooltip title='Não interessa' placement='top'>

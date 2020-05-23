@@ -10039,6 +10039,11 @@ react-scripts@^3.4.0:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-shimmer@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-shimmer/-/react-shimmer-3.0.2.tgz#9d846b905c7540ddef6d5bd0800425285b23e123"
+  integrity sha512-Vpuc8dvxFppEajcFx/5+lljt0ugLvf3acMFuVLvvrAEjWScjCqMew+ePI45gAQd0Tk5S0T52rJjz6PgofN4WqA==
+
 react-star-ratings@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-star-ratings/-/react-star-ratings-2.3.0.tgz#311a68f8f44492439a5b306ed743e63a63fe0fa7"

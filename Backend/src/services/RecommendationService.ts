@@ -21,7 +21,7 @@ class RecommendationService {
   }
 
   async initializeConnection (): Promise<void> {
-    const client = await new MongoClient('mongodb://localhost:27017').connect()
+    const client = await new MongoClient(`mongodb://${process.env.MONGO_HOST}:27017`).connect()
 
     this.db = client.db('Xilften')
 

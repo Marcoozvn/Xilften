@@ -40,17 +40,13 @@ export default ({ genre }) => {
     dispatch(changeMoviesOffset(genre, my_offset));
   }  
 
-  function openMovieDetails(movie) {
-    dispatch(changeMoviesDetails(genre, movie));
-  }
-
   return (
     <>
       <div className="slider">
         {offset > 0 && <SlideButton onClick={previousPage} type="prev"/>}      
         <div className="slider-container">
           {moviesPerPage.map( mov => (
-            <div className='wrap' key={mov._id} onClick={() => openMovieDetails(mov)}>
+            <div className='wrap' key={mov._id}>
               <Card movie={mov} genre={genre}/>
             </div>
           ))}
