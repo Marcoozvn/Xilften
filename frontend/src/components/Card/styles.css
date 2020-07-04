@@ -1,0 +1,34 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px; 
+  border-radius: 5px;
+  width: 150px;
+  min-width: 150px;
+  height: 250px;
+  background-color: #005073;
+  background-repeat: no-repeat;
+  transition: transform 300ms ease 100ms;
+}
+
+.card header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.slider-container:hover .wrap.card {
+  transform: translateX(-20%);
+}
+/*tirar o .wrap*/
+
+.card:hover ~ .card {
+  transform: translateX(20%);
+}
+
+.card:hover {
+  transform: scale(1.2) !important;
+}

@@ -1,0 +1,47 @@
+.profile-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.avatar-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.genre-list {
+  width: 70%;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.avatar-list img {
+  cursor: pointer;
+  margin: 10px 10px 40px 10px;
+  opacity: 0.5;
+}
+
+.avatar-list img:hover {
+  transform: scale(1.1) !important;
+  transition-duration: 0.5s;
+}
+
+.avatar-selected {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+.profile-container button {
+  background: #6C63FF;
+  border: 0;
+  padding: 15px;
+  border-radius: 5px;
+  width: 200px;
+  color: #fff;
+  margin-top: 20px;
+  cursor: pointer;
+}
