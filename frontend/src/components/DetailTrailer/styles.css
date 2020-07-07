@@ -1,0 +1,56 @@
+
+.background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.video-container {
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  width: 60%;
+  overflow: hidden;
+}
+
+iframe {
+  border: 0 !important;
+  padding-left: 30px;
+}
+
+.video-right {
+  background: #000;
+  z-index: 2;
+  width: 40%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  color: #6c63ff;
+}
+
+.video-right::before {
+  content: '';
+  position: absolute;
+  z-index: 10;
+  /*
+  background-image: -webkit-gradient(linear,left top,left top,from(#000),to(transparent));
+  background-image: -webkit-linear-gradient(right,#000,transparent);
+  background-image: -moz- oldlinear-gradient(to left,#000,transparent);
+  background-image: -o-linear-gradient(right,#000,transparent);*/
+  background-image: linear-gradient(to left,#000,transparent);
+  top: 0;
+  bottom: 0;
+  left: -200px;
+  width: 200px;
+} 

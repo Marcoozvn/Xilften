@@ -134,7 +134,7 @@ class RecommendationService {
     return moviesRelevances
   }
 
-  async getMostSimilars (similarities: MapInterface<number>, k: number): Promise<[string, number][]> {
+  public getMostSimilars (similarities: MapInterface<number>, k: number): [string, number][] {
     console.log('Get Most Similars')
     const items: [string, number][] = Object.keys(similarities).map(function (key) {
       return [key, similarities[key]]
@@ -147,7 +147,7 @@ class RecommendationService {
     return items.slice(0, k)
   }
 
-  async euclideanSimilarity (targetRatings: MapInterface<number>, otherUserRatings: MapInterface<number>): Promise<number> {
+  public euclideanSimilarity (targetRatings: MapInterface<number>, otherUserRatings: MapInterface<number>): number {
     console.log('Euclidean Similarity')
     let coef = 0
 

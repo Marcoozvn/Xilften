@@ -9,6 +9,7 @@ export interface MovieInterface extends Document {
   tmdbId: number;
   posterPath: string;
   backdropPath: string;
+  trailerUrl?: string;
   overview: string;
   voteAverage: number;
 }
@@ -38,6 +39,9 @@ const MovieSchema = new Schema({
     type: String
   },
   backdropPath: {
+    type: String
+  },
+  trailerUrl: {
     type: String
   },
   overview: {

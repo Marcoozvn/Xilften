@@ -4,6 +4,17 @@ import Rating from '../schemas/Rating'
 import Movie from '../schemas/Movie'
 import { tmdbApi, apiKey } from '../services/TmdbApi'
 
+interface GetDetailsResponse {
+  id: string;
+  videos: {
+    results: {
+      id: string;
+      site: string;
+      type: string;
+    }[];
+  };
+}
+
 class LoadDataService {
   async loadUsersFromCSV (): Promise<void> {
     const csvFilePath = `${process.cwd()}/src/data/ratings.csv`
@@ -55,6 +66,28 @@ class LoadDataService {
         }
       } catch (e) {
         console.log(e)
+      }
+    }
+  }
+
+  async carregaTrailers (): Promise<void> {
+    const movies = await Movie.find({})
+
+    for (let index = 0; index < movies.length; index++) {
+      const movie = movies[index]
+
+      console.log(index)
+
+      if (!movie.trailerUrl) {
+        const response = await tmdbApi.get<GetDetailsResponse>(`/movie/${movie.tmdbId}?api_key=${apiKey}&language=pt-BR&append_to_response=videos`)
+        const [youtube] = response.data.videos?.results?.filter(item => item.site === 'Youtube' && item.type === 'Trailer')
+
+        if (youtube) {
+          const url = 'https://www.youtube.com/embed/' + youtube.id
+          console.log(url)
+          Movie.update({ _id: movie._id }, { ...movie, trailerUrl: url })
+          console.log('Salvando ' + index)
+        }
       }
     }
   }

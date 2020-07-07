@@ -4,7 +4,7 @@ const tmdbApi = axios.create({
   baseURL: 'https://api.themoviedb.org/3'
 })
 
-const apiKey = '84ff829e533f00dd6091b6cc37dccd3a'
+const apiKey = process.env.TMDB_API_KEY
 const posterUrl = 'https://image.tmdb.org/t/p/w154'
 const backdropUrl = 'https://image.tmdb.org/t/p/w1280'
 

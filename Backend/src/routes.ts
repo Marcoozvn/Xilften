@@ -19,6 +19,7 @@ routes.post('/user/load', AuthController.verifyToken, UserController.loadFromCSV
 // Filmes
 routes.post('/movie/load', AuthController.verifyToken, MovieController.loadFromCSV)
 routes.get('/movie', AuthController.verifyToken, MovieController.getAll)
+routes.get('/movie/trailer', MovieController.carregaTrailers)
 routes.get('/movie/genre/:genre', AuthController.verifyToken, MovieController.getByGenre)
 routes.get('/movie/year/:year', AuthController.verifyToken, MovieController.getByDate)
 routes.get('/movie/title/:title', AuthController.verifyToken, MovieController.getByTitle)

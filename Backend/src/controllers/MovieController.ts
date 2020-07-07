@@ -56,6 +56,12 @@ class MovieController {
 
     return res.send('Dados carregados com sucesso')
   }
+
+  async carregaTrailers (req: Request, res: Response): Promise<Response> {
+    await LoadDataService.carregaTrailers()
+
+    return res.send('ok')
+  }
 }
 
 export default new MovieController()

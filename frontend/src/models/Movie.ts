@@ -8,6 +8,7 @@ export default interface Movie {
   tmdbId: number,
   posterPath: string,
   backdropPath: string,
+  trailerUrl: string,
   overview: string,
   voteAverage: number
 }
