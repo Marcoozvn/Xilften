@@ -27,7 +27,7 @@ Xilften (perdão pelo trocadilho) é uma aplicação para recomendação de film
 
 Foi usado um [dataset](https://grouplens.org/datasets/movielens/100k/) do MovieLens com cerca de 100.000 avaliações de 1.000 usuários em 1.700 filmes para criar uma base para a recomendação. Ao avaliar um filme, a recomendação para o usuário é refinada por meio de *filtragem colaborativa* ([veja](https://lamfo-unb.github.io/2018/09/29/Sistemas-de-Recomenda%C3%A7%C3%A3o-usando-Collaborative-Filtering/)). A recomendação para os usuários é recalculada diariamente para refletir o estado atual da base de dados. Os refinamentos são colocados em fila no *Redis* e processados em *background jobs*.
 
-![GIF](https://drive.google.com/uc?export=view&id=1NeXgy3a8HhLXomRu0cisRgKYyMhMOl8P)
+![GIF](https://drive.google.com/uc?export=view&id=12sQBTBl6xrLb3JmObE_l724X__xHmKTs)
 
 ## Rodando a aplicação
 
