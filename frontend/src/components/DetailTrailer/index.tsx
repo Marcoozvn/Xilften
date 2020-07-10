@@ -9,12 +9,12 @@ interface Props {
 
 
 const DetailTrailer: React.FC<Props> = ({ movie }) => {
-  console.log(movie)
+  
   return (
     <>
       <div className="background">
         <div className="video-container" >
-          <iframe title="trailer" width="100%" height="350" src="https://www.youtube.com/embed/MtvRTUKK-FM" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          <iframe title="trailer" width="100%" height="350" src={movie.trailerUrl} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
         </div>
         <div className="video-right">
           <h2>Já assistiu?</h2>

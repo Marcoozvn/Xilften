@@ -12,19 +12,19 @@ interface Props {
 const Detail: React.FC<Props> = ({ movie }) => {
   const [page, setPage] = useState('overview')
 
-  console.log(movie)
-
   return (
     <div className="container">
-      { page === 'overview' ? <DetailOverview movie={movie} /> : <DetailTrailer movie={movie} /> }
+      {page === 'overview' ? <DetailOverview movie={movie} /> : <DetailTrailer movie={movie} />}
+      {movie.trailerUrl &&
         <div className="details-menu">
           <div className={`details-menu-item ${page === 'overview' ? 'active' : ''}`} onClick={() => setPage('overview')}>
             <strong>Overview</strong>
           </div>
-          <div className={`details-menu-item ${page === 'mais' ? 'active' : ''}`} onClick={() => setPage('mais')}>
+          <div className={`details-menu-item ${page === 'trailer' ? 'active' : ''}`} onClick={() => setPage('trailer')}>
             <strong>Trailer</strong>
           </div>
         </div>
+      }
     </div>
   )
 }
