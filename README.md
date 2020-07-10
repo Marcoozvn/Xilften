@@ -1,7 +1,26 @@
-# Xilften
+<p align="center">
+  <a href="" rel="noopener">     
+ <img width=150px height=150px src="https://drive.google.com/uc?export=view&id=1p33hb4K1mLQXiaHG38nmje8z-P4BOw6j" alt="Xilften"></a>
+</p>
 
-Xilften (perdão pelo trocadilho) é uma aplicação para recomendação de filmes criada para aprender e aplicar conceitos/tecnologias como:
-+ React + Redux
+<div align="center">
+
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/Marcoozvn/Xilften">
+  
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Marcoozvn/Xilften">
+  
+  <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Marcoozvn/Xilften">
+  
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Marcoozvn/Xilften">
+
+</div>
+
+---
+
+Xilften (perdão pelo trocadilho) é uma aplicação para recomendação de filmes criada no intuito de aprender e aplicar conceitos/tecnologias como:
++ React + Redux + Context API
 + Filas + Redis + Background Jobs
 + Recomendação de filmes usando Filtragem Colaborativa
 + Docker
